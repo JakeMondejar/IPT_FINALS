@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservation Records</title>
+  <link rel="stylesheet" href="goy.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  
+</head>
+
+<body>
+  <ul class="topnav">
+    <li>
+      <a href="clone.html">Home</a>
+      <a class="active" href="sss.html">Reservation</a>
+    </li>
+  </ul>
+  <div class="reservation-list">
+    <div class="reservation-top">
+      <div class="reservation-data">
+        <h1>Hotel Reservation</h1>
+      </div>
+      <div class="reservation-data search">
+        <form id="get-form">
+          <!-- form contents -->
+          <input type="text" id="id" name="id">
+          <button type="submit" id="search">Search</button>
+          <button type="submit" id="delete">Delete</button>
+        </form>
+      </div>
+    </div>
+    <div class="table">
+      <div class="thead">
+        <div class="tr">
+          <div class="th">ID</div>
+          <div class="th">Name</div>
+          <div class="th">Email</div>
+          <div class="th">Phone</div>
+          <div class="th">Address</div>
+          <div class="th">Check-in</div>
+          <div class="th">Check-out</div>
+          <div class="th">Room-Type</div>
+          <div class="th">Guests</div>
+        </div>
+      </div>
+      <div class="tbody" id="tbody">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script id="listitems" type="text/x-handlebars-template">
+    <div class="row" id="logslist">
+      {{#each data}}
+      <div class="tr">
+        <div class="td">{{id}}</div>
+        <div class="td">{{name}}</div>
+        <div class="td">{{email}}</div>
+        <div class="td">{{phone}}</div>
+        <div class="td">{{address}}</div>
+        <div class="td">{{datein}}</div>
+        <div class="td">{{dateout}}</div>
+        <div class="td">{{room}}</div>
+        <div class="td">{{guest}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </script>
+
+  <script>
+    const clearFields = () => {
+      $('input[type="text"]').val('');
+      $('input[type="date"]').val('');
+      $('select').val('');
+    }
+
+    const get = (choice) => {
+      
+      // serialize form data
+      var formData = $("#id").serializeArray();
+      const finalUrl = choice ? 'http://172.17.100.12:8081/mondejar/IPT/get.o' : 'http://172.17.100.12:8081/mondejar/IPT/delete.o';
+      $.ajax({
+        url: finalUrl,
+        type: 'POST',
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (response) {
+          if (response.status === "success") {
+            console.log(response.data)
+
+            if (choice) {
+              var template = Handlebars.compile($("#listitems").html());
+              var html = template(response);
+              $("#tbody").html(html);
+            } else {
+              clearFields();
+              get(true);
+            }
+
+          } else if (response.status === "error") {
+            console.log(response.message)
+            console.log(response.message_additional)
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+        }
+      });
+    }
+    get(true); // Initial fetch
+    $(document).ready(function () {
+      $("#search").click(function (e) {
+        e.preventDefault();
+        get(true); // Fetch on form submit
+      });
+
+      $("#delete").click(function (e) {
+        e.preventDefault();
+        get(false); // Delete on button click
+      });
+    });
+  </script>
+</body>
+
+</html>
