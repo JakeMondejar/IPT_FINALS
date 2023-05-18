@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+ 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background-image: url("guduyo12.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}       
+:root {
+    --light: #fff;
+    --bg: #ddd;
+    --dark: #34AF6D;
+    --text-color: rgb(85, 83, 83);
+    --label-color: black;
+}
+
+/*reservation List serction  */
+ .reservation {
+    width: 80%;
+    margin: 50px 0 0 10%;
+    text-transform: capitalize;
+}
+
+.reservation-list {
+    padding: 10px;
+    margin-top: 29px;
+    background: var(--light);
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.reservation .reservation-top {
+    width: 100%;
+    display: flex;
+    justify-content:baseline;
+    align-items: center;
+}
+
+.reservation .reservation-data {
+    width: calc((100% / 2) - 10px);
+}
+
+.reservation .reservation-data.search {
+    display: flex;
+    justify-content: right;
+}
+
+.reservation .reservation-data input {
+    padding: 10px;
+    margin-right: 10px;
+    color: var(--text-color);
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.reservation .reservation-data button {
+    padding: 10px 25px;
+    border-radius: 5px;
+    background: var(--dark);
+    transition: all 0.5s ease;
+    color: white;
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.reservation .reservation-data button:hover {
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+    background: var(--text-color);
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 15px;
+    width: 100%;
+    overflow:hidden;
+    border-radius: 5px 5px 0 0;
+}
+
+.table .thead .tr {
+    color: var(--light);
+    background: var(--dark);
+}
+
+.table .thead .tr,
+.table .tbody .tr{
+    width: 100%;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.table .th,
+.table .td {
+    width: calc((100% / 9) - 2%);
+    padding: 12px 0;
+}
+
+.table .tbody .tr {
+    border-bottom: 1px solid #ddd;
+    color: var(--label-color);
+}
+
+.table .tbody .tr:nth-of-type(odd) {
+    background: #f3f3f3;
+}
+
+.table .tbody .tr.active {
+    font-weight: bold;
+    color: #4AD489;
+}
+
+.table .tbody .tr:last-of-type {
+    border-bottom: 2px solid #4AD489;
+}
+
+.fast {
+    animation-duration: 1s;
+}
+
+.sloq {
+    animation-duration: 10s;
+}
+
+.slide {
+    animation-name: slide;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-fill-mode: both;
+}
+
+.bounce {
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-fill-mode: both;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
