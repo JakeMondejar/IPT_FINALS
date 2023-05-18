@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOYOTEL RESORT & SPA</title>
+  <link rel="stylesheet" href="style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <ul class="topnav">
+    <li>
+      <a class="active" href="clone.html">Home</a>
+      <a href="sss.html">Reservation</a>
+    </li>
+  </ul>
+
+  <img class="logo" src="logo.png" alt="logo">
+  <div class="top-container">
+    <h1 class="title">GOYOTEL RESORT & SPA</h1>
+  </div>
+
+  <div class="container">
+    <h2>Hotel Reservation Form</h2>
+    <form id="insert-form">
+      <div class="input-box">
+        <i class='bx bxs-user icon'></i>
+        <label class="form-label">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your Name" class="input">
+      </div>
+      <div class="input-box">
+        <i class='bx bx-envelope icon'></i>
+        <label class="form-label">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your Email" class="input">
+      </div>
+      <div class="input-box">
+        <i class='bx bxs-phone icon'></i>
+        <label class="form-label">Phone</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter your Phone" class="input">
+      </div>
+      <div class="input-box">
+        <i class='bx bxs-map-pin icon'></i>
+        <label class="form-label">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter your Address" class="input">
+      </div>
+      <div class="input-box">
+        <i class='bx bx-calendar icon'></i>
+        <label class="form-label">Check-in Date</label>
+        <input type="date" id="datein" name="datein" class="input">
+      </div>
+      <div class="input-box">
+        <i class='bx bx-calendar icon'></i>
+        <label class="form-label">Check-out Date</label>
+        <input type="date" id="dateout" name="dateout" class="input">
+      </div>
+      <div class="input-box">
+        <i class='bx bx-bed icon'></i>
+        <label>Room Type</label>
+        <div class="custom_select">
+          <select id="room" name="room">
+            <option value="">Select</option>
+            <option value="single">single</option>
+            <option value="double">double</option>
+            <option value="triple">triple</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-box">
+        <i class='bx bx-male-female icon'></i>
+        <label class="form-label">Number of Guests</label>
+        <input type="text" id="guest" name="guest" placeholder="Enter your Number of Guests" class="input">
+      </div>
+      <div class="input-box">
+        <input type="submit" value="Submit" class="btn" id="register">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $("#register").click(function (event) {
+        event.preventDefault();
+        // serialize form data
+        var formData = $("#insert-form").serializeArray();
+
+        console.log(JSON.stringify(formData));
+
+        // send AJAX request
+        $.ajax({
+          url: 'http://172.17.100.12:8081/mondejar/IPT/post.o',
+          type: 'POST',
+          data: JSON.stringify(formData),
+          contentType: 'application/json',
+          dataType: 'json',
+          success: function (response) {
+            if (response.status === "success") {
+              console.log(response.message)
+              console.log(response.data)
+
+              $('input[type="text"]').val('');
+              $('select').val('Select');
+              $('input[type="date"]').val('');
+            } else if (response.status === "error") {
+              console.log(response.message)
+              console.log(response.message_additional)
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
